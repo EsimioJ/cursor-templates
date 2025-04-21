@@ -1,0 +1,7 @@
+{
+  "name": "shadcn senza -ui",
+  "description": "Usa sempre shadcn senza il suffisso -ui",
+  "attachRule": "Auto",
+  "pathPattern": "**/*.js,**/*.ts,**/*.tsx",
+  "prompt": "Ricorda che shadcn ha rimosso il suffisso '-ui' dal suo nome. Usa SEMPRE 'shadcn' invece di 'shadcn-ui' quando ti riferisci alla libreria. Per l'installazione di componenti, usa il comando 'npx shadcn add [componente]' e non 'npx shadcn-ui add [componente]'. Per gli import, usa 'import { Button } from \"@/components/ui/button\"' e non package come '@shadcn-ui/...'. Verifica sempre la documentazione ufficiale su https://ui.shadcn.com/ prima di implementare componenti."
+}

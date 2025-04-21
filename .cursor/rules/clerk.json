@@ -1,0 +1,7 @@
+{
+  "name": "Clerk - versione corretta",
+  "description": "Usa sempre l'API più recente di Clerk e verifica la documentazione",
+  "attachRule": "Auto",
+  "pathPattern": "**/*clerk*.js,**/*clerk*.ts,**/*clerk*.tsx,**/middleware.ts,**/middleware.js",
+  "prompt": "Prima di scrivere qualsiasi codice relativo a Clerk, verifica SEMPRE la documentazione più recente su https://clerk.com/docs. Per il middleware di Next.js con Clerk, usa il pattern attuale:\n\nimport { authMiddleware } from '@clerk/nextjs';\n\nexport default authMiddleware({\n  publicRoutes: ['/', '/api/(.*)'],\n});\n\nexport const config = {\n  matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],\n};\n\nNON usare pattern deprecati. Ricorda che Clerk richiede configurazioni specifiche per Next.js App Router."
+}

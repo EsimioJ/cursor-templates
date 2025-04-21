@@ -1,0 +1,6 @@
+{
+  "name": "Usa sempre versioni aggiornate",
+  "description": "Controlla sempre le versioni più recenti delle librerie",
+  "attachRule": "Always",
+  "prompt": "Prima di generare codice che utilizzi librerie esterne:\n1. Verifica SEMPRE la documentazione più recente della libreria\n2. Usa le API e convenzioni più recenti\n3. Non assumere che la sintassi o le API che conosci siano ancora valide\n4. Se non sei sicuro della versione corretta, chiedi prima di implementare\n5. Cerca nel package.json del progetto per vedere quale versione è installata\n\nPer Next.js usa l'App Router, per Clerk usa il pattern middleware aggiornato, per shadcn usa il nome senza -ui."
+}

@@ -1,0 +1,113 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  // Relazioni
+  posts         Post[]
+  comments      Comment[]
+  profile       Profile?
+  
+  // Se usi Clerk, puoi collegare gli account
+  clerkId       String?   @unique
+  
+  // Campi per ruoli e permessi
+  role          Role      @default(USER)
+}
+
+model Profile {
+  id           String   @id @default(cuid())
+  bio          String?  @db.Text
+  location     String?
+  website      String?
+  occupation   String?
+  phoneNumber  String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  // Relazione con User
+  userId       String   @unique
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Post {
+  id          String    @id @default(cuid())
+  title       String
+  content     String?   @db.Text
+  published   Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  // Relazioni
+  authorId    String
+  author      User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  comments    Comment[]
+  categories  CategoriesOnPosts[]
+  
+  // Indici per migliorare le performance
+  @@index([authorId])
+}
+
+model Comment {
+  id          String   @id @default(cuid())
+  content     String   @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relazioni
+  postId      String
+  post        Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  authorId    String
+  author      User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  
+  // Indici per migliorare le performance
+  @@index([postId])
+  @@index([authorId])
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  description String?   @db.Text
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  // Relazione many-to-many con Post
+  posts       CategoriesOnPosts[]
+}
+
+// Tabella di join per relazione many-to-many
+model CategoriesOnPosts {
+  postId      String
+  post        Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  categoryId  String
+  category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  assignedAt  DateTime @default(now())
+  
+  @@id([postId, categoryId])
+  @@index([postId])
+  @@index([categoryId])
+}
+
+// Enum per ruoli utente
+enum Role {
+  USER
+  ADMIN
+  EDITOR
+} 

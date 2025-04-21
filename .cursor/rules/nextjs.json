@@ -1,0 +1,6 @@
+{
+  "name": "Usa sempre App Router in Next.js",
+  "description": "Assicurati di utilizzare sempre l'App Router invece del Page Router",
+  "attachRule": "Always",
+  "prompt": "Quando scrivi codice per Next.js, usa SEMPRE l'App Router (non il Page Router). Verifica la struttura del progetto prima di generare codice. L'App Router organizza le pagine nella directory app/ e utilizza convenzioni come page.js, layout.js, loading.js, error.js, ecc. NON utilizzare mai la directory pages/ a meno che non sia esplicitamente richiesto."
+}
